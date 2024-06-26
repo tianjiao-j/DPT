@@ -1,7 +1,7 @@
 j=$1
 MODEL=DPT
-DATASET=caltech101 # [eurosat caltech101 oxford_flowers food101 fgvc_aircraft]
-DATADIR=caltech101 #[EuroSAT Caltech101 Flowers102 Food101 FGVC/fgvc-aircraft-2013b]
+#DATASET=caltech101 # [eurosat caltech101 oxford_flowers food101 fgvc_aircraft]
+#DATADIR=caltech101 #[EuroSAT Caltech101 Flowers102 Food101 FGVC/fgvc-aircraft-2013b]
 # DATASET=caltech101
 # DATADIR=Caltech101
 #DATASET=eurosat
@@ -27,21 +27,26 @@ DATADIR=caltech101 #[EuroSAT Caltech101 Flowers102 Food101 FGVC/fgvc-aircraft-20
 # BOTTOMLIMIT is the layers CAVPT inserted into. e.g. 8 means 8-12 layers are equipped with CAVPT. 12 means 12 layers are equipped with CAVPT.1 means every layer are equipped with CAVPT.
 # C is our general knowledge guidence epoch.
 # ALPHA is loss balancing parameter.
-
-python train.py --root /home/tianjiao/PycharmProjects/Tip-Adapter/data/ --seed $j \
---trainer $MODEL \
---dataset-config-file configs/datasets/${DATASET}.yaml \
---output-dir ./output \
---config-file ./configs/trainers/VPT/vit_b32_deep.yaml \
-TRAINER.COOP.N_CTX 16 \
-TRAINER.COOP.CSC False \
-TRAINER.COOP.CLASS_TOKEN_POSITION end \
-DATASET.NUM_SHOTS 1 \
-TRAINER.VPT.N_CTX 10 \
-TRAINER.TOPDOWN_SECOVPT.BOTTOMLIMIT 12 \
-TRAINER.SELECTED_COVPT.CPN 10 \
-OPTIM.LR 0.01 \
-OPTIM.MAX_EPOCH 60 \
-PRETRAIN.C 30 \
-TRAINER.ALPHA 0.3
+for DATASET in caltech101 dtd oxford_pets stanford_cars ucf101 food101 sun397 fgvc_aircraft eurosat oxford_flowers imagenet
+do
+  for N_SHOTS in 1 2 4 8 16
+  do
+    python train.py --root ../Tip-Adapter/data/ --seed $j \
+    --trainer $MODEL \
+    --dataset-config-file configs/datasets/${DATASET}.yaml \
+    --output-dir ./output/${DATASET} \
+    --config-file ./configs/trainers/VPT/vit_b16.yaml \
+    TRAINER.COOP.N_CTX 16 \
+    TRAINER.COOP.CSC False \
+    TRAINER.COOP.CLASS_TOKEN_POSITION end \
+    DATASET.NUM_SHOTS ${N_SHOTS} \
+    TRAINER.VPT.N_CTX 10 \
+    TRAINER.TOPDOWN_SECOVPT.BOTTOMLIMIT 12 \
+    TRAINER.SELECTED_COVPT.CPN 10 \
+    OPTIM.LR 0.01 \
+    OPTIM.MAX_EPOCH 60 \
+    PRETRAIN.C 30 \
+    TRAINER.ALPHA 0.3
+  done
+done
 
