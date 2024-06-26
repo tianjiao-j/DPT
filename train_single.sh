@@ -1,11 +1,11 @@
 j=$1
 MODEL=DPT
-DATASET=fgvc_aircraft # [eurosat caltech101 oxford_flowers food101 fgvc_aircraft]
-DATADIR=FGVC/fgvc-aircraft-2013b #[EuroSAT Caltech101 Flowers102 Food101 FGVC/fgvc-aircraft-2013b]
+DATASET=caltech101 # [eurosat caltech101 oxford_flowers food101 fgvc_aircraft]
+DATADIR=caltech101 #[EuroSAT Caltech101 Flowers102 Food101 FGVC/fgvc-aircraft-2013b]
 # DATASET=caltech101
 # DATADIR=Caltech101
-DATASET=eurosat
-DATADIR=EuroSAT
+#DATASET=eurosat
+#DATADIR=EuroSAT
 # DATASET=stanford_cars
 # DATADIR=StanfordCars
 # DATASET=oxford_flowers
@@ -28,7 +28,7 @@ DATADIR=EuroSAT
 # C is our general knowledge guidence epoch.
 # ALPHA is loss balancing parameter.
 
-python submit_train.py --root ./datasets/${DATADIR} --seed $j \
+python train.py --root /home/tianjiao/PycharmProjects/Tip-Adapter/data/ --seed $j \
 --trainer $MODEL \
 --dataset-config-file configs/datasets/${DATASET}.yaml \
 --output-dir ./output \

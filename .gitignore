@@ -1,0 +1,5 @@
+.idea/
+clip/__pycache__/
+datasets/__pycache__/
+output/
+trainers/__pycache__/

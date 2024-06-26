@@ -115,7 +115,7 @@ def extend_cfg(cfg):
     cfg.DATASET.SUBSAMPLE_CLASSES = "all"  # all, base or new
 
     cfg.TRAINER.VPT = CN()
-    cfg.TRAINER.VPT.N_CTX = 5 # VPT CTX num
+    cfg.TRAINER.VPT.N_CTX = 10 # VPT CTX num
     cfg.TRAINER.VPT.LN = False
     
     
@@ -156,6 +156,12 @@ def setup_cfg(args):
 
 
 def main(args):
+    args.seed = 1
+    args.root = "/home/tianjiao/PycharmProjects/Tip-Adapter/data/"
+    args.trainer = 'DPT'
+    args.dataset_config_file = 'configs/datasets/caltech101.yaml'
+    args.output_dir = './output'
+    args.config_file = './configs/trainers/VPT/vit_b32_deep.yaml'
     cfg = setup_cfg(args)
     if cfg.SEED >= 0:
         print("Setting fixed seed: {}".format(cfg.SEED))
