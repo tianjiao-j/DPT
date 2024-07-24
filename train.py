@@ -156,12 +156,12 @@ def setup_cfg(args):
 
 
 def main(args):
-    args.seed = 1
-    args.root = "../Tip-Adapter/data/"
-    args.trainer = 'DPT'
-    args.dataset_config_file = 'configs/datasets/caltech101.yaml'
-    args.output_dir = './output'
-    args.config_file = './configs/trainers/VPT/vit_b32_deep.yaml'
+    # args.seed = 1
+    # args.root = "../Tip-Adapter/data/"
+    # args.trainer = 'DPT'
+    # args.dataset_config_file = 'configs/datasets/caltech101.yaml'
+    # args.output_dir = './output'
+    # args.config_file = './configs/trainers/VPT/vit_b32_deep.yaml'
     cfg = setup_cfg(args)
     if cfg.SEED >= 0:
         print("Setting fixed seed: {}".format(cfg.SEED))
