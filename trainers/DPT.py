@@ -530,7 +530,8 @@ class CustomCLIP_Selected_CoVPTDeep(nn.Module):
         self.dtype = clip_model.dtype
 
     def forward(self, image, label=None):
-        image = image.to(next(self.image_encoder.parameters()).device)
+        #image = image.to(next(self.image_encoder.parameters()).device)
+        image = image.cuda()
         with torch.no_grad():
             zeroshotclip_image_feature = self.zeroshot_clip_image_encoder(image.type(self.dtype))
             zeroshotclip_image_feature = zeroshotclip_image_feature / zeroshotclip_image_feature.norm(dim=-1, keepdim=True)

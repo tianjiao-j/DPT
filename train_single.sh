@@ -1,5 +1,5 @@
-j=$1
-MODEL=DPT
+#j=$1
+#MODEL=DPT
 #DATASET=caltech101 # [eurosat caltech101 oxford_flowers food101 fgvc_aircraft]
 #DATADIR=caltech101 #[EuroSAT Caltech101 Flowers102 Food101 FGVC/fgvc-aircraft-2013b]
 # DATASET=caltech101
@@ -31,8 +31,8 @@ for DATASET in caltech101 dtd oxford_pets stanford_cars ucf101 food101 sun397 fg
 do
   for N_SHOTS in 1 2 4 8 16
   do
-    python train.py --root ../Tip-Adapter/data/ --seed $j \
-    --trainer $MODEL \
+    python train.py --root ../Tip-Adapter/data/ --seed 1 \
+    --trainer DPT \
     --dataset-config-file configs/datasets/${DATASET}.yaml \
     --output-dir ./output/${DATASET} \
     --config-file ./configs/trainers/VPT/vit_b16.yaml \
